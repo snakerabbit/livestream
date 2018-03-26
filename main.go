@@ -7,7 +7,11 @@ import (
   "net/http"
   "github.com/gorilla/mux"
   "github.com/onestay/go-new-twitch"
+  "database/sql"
+  "github.com/go-sql-driver/mysql"
   )
+
+
 var streams []twitch.StreamData
 
 var client = twitch.NewClient("w9go3ntxy39g3w1g3dhzwoa60ex92q")
@@ -24,9 +28,17 @@ var client = twitch.NewClient("w9go3ntxy39g3w1g3dhzwoa60ex92q")
   }
 
 
+  func DeleteCurrentStreams(w http.ResponseWriter, r *http.Request){
+    streams = []twitch.StreamData{}
+    json.NewEncoder(w).Encode(streams)
+  }
+
+
 func main() {
+  db, err := sql.Open("mysql", "user:password@/livestream")
   router := mux.NewRouter()
-  router.HandleFunc("/", GetCurrentStreams).Methods("GET")
-  log.Fatal(http.ListenAndServe(":8080", router))
+  router.HandleFunc("/streams", GetCurrentStreams).Methods("GET")
+  router.HandleFunc("/streams", DeleteCurrentStreams).Methods("DELETE")
+  log.Fatal(http.ListenAndServe(":3000", router))
 
 }
