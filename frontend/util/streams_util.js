@@ -1,7 +1,6 @@
-export const fetchStreams = (userID) => {
-  return $.ajax({
-    method: "GET",
-    url:"http://localhost:3000/streams",
-    data: userID
+export const fetchStreams = () => {
+  return fetch('http://localhost:3000/streams')  
+  .then(function(response) {
+    return response.json();
   });
 };

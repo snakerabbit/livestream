@@ -9,7 +9,7 @@ const receiveStreams = streams => {
   };
 };
 
-export const fetchStreams = userID => dispatch => (
-  StreamsUtil.fetchResponses(userID)
+export const fetchStreams = () => dispatch => (
+  StreamsUtil.fetchStreams()
                  .then(streams => dispatch(receiveStreams(streams)))
 );
