@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
+import ListItem from './list_item';
 
 class List extends React.Component {
   constructor(props){
     super(props);
   }
+
 
 
   render(){
@@ -14,7 +16,9 @@ class List extends React.Component {
         <FlatList
           scrollEnabled={true}
           data={this.props.streams}
-          renderItem={({item}) => <Text key={item.id} style={styles.item}>Title: {item.title} ~{"\n"}</Text>}
+          renderItem={({item}) =>
+            <ListItem item={item}/>
+          }
         />
       </View>
     );
@@ -23,7 +27,6 @@ class List extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },

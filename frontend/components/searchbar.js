@@ -23,7 +23,6 @@ class SearchBar extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
   }

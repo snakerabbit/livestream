@@ -6,21 +6,30 @@ import List from './list';
 class Root extends React.Component {
   constructor(props){
     super(props);
-    this.state={
-      streams:null
-    };
+    this.renderContent = this.renderContent.bind(this);
   }
 
   componentDidMount(){
+  }
+
+  renderContent(){
+    if(this.props.streams){
+      return(
+        <List streams={this.props.streams}/>
+      );
+    } else {
+      return(
+        <SearchBar fetchStreams={this.props.fetchStreams}/>
+      );
+    }
   }
 
 
   render(){
     return (
       <View style={styles.container}>
-        <Text>Root</Text>
-        <SearchBar fetchStreams={this.props.fetchStreams}/>
-        <List streams={this.props.streams}/>
+        <Text>Twitch Stream Search</Text>
+        <View>{this.renderContent()}</View>
       </View>
     );
   }
