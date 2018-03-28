@@ -11,10 +11,3 @@ export const fetchStream = user => {
     return response.json();
   });
 };
-
-export const deleteStreams = () => {
-  return fetch('http://localhost:3000/streams', {method: 'delete'})
-  .then(function(response) {
-    return response.json();
-  });
-};

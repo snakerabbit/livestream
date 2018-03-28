@@ -38,10 +38,13 @@ class StreamListItem extends React.Component {
 
   render(){
     let url=`https://player.twitch.tv/?stream=${this.props.item.id}&channelId=${this.props.item.user_id}&autoplay=false`;
+    let idx = this.props.item.thumbnail_url.indexOf("-", 52);
+    console.log(idx);
     return(
       <View>
         <ListItem onPress={this.handleClick}
           title={this.props.item.title}
+          subtitle={this.props.item.thumbnail_url.slice(52, idx)}
           avatar="https://pbs.twimg.com/profile_images/549090737434812416/CvARcZHS.jpeg">
       </ListItem>
       <Modal
