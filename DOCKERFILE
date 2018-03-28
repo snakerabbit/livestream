@@ -1,0 +1,6 @@
+FROM golang
+
+RUN go get./
+RUN go build
+RUN ./livestream
+RUN cd frontend && npm start
