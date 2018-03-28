@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList,
-        TouchableHighlight, Modal, WebView } from 'react-native';
+        TouchableHighlight, Modal, WebView} from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 
 
-class ListItem extends React.Component {
+class StreamListItem extends React.Component {
   constructor(props){
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -35,15 +36,14 @@ class ListItem extends React.Component {
   }
 
   render(){
+    console.log('ITEM', this.props.item);
     let url=`https://player.twitch.tv/?stream=${this.props.item.id}&channelId=${this.props.item.user_id}&autoplay=false`;
     return (
       <View>
-        <TouchableHighlight onPress={this.handleClick}>
-          <Text key={this.props.item.id}
-                style={styles.item}>
-                Title: {this.props.item.title} ~{"\n"}
-          </Text>
-      </TouchableHighlight>
+        <ListItem onPress={this.handleClick}
+          title={this.props.item.title}
+          avatar="https://pbs.twimg.com/profile_images/549090737434812416/CvARcZHS.jpeg">
+      </ListItem>
       <Modal
         style={styles.modal}
         animationType="slide"
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
     margin: 20
   }
 });
-export default ListItem;
+export default StreamListItem;

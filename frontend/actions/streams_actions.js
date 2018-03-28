@@ -13,3 +13,8 @@ export const fetchStreams = () => dispatch => (
   StreamsUtil.fetchStreams()
                  .then(streams => dispatch(receiveStreams(streams)))
 );
+
+export const fetchStream = user => dispatch => (
+  StreamsUtil.fetchStream(user)
+                .then(stream => dispatch(receiveStreams(stream)))
+);

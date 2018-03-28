@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import SearchBar from './searchbar';
-import List from './list';
+import StreamList from './list';
 
 class Root extends React.Component {
   constructor(props){
@@ -15,11 +15,12 @@ class Root extends React.Component {
   renderContent(){
     if(this.props.streams){
       return(
-        <List streams={this.props.streams}/>
+        <StreamList streams={this.props.streams}/>
       );
     } else {
       return(
-        <SearchBar fetchStreams={this.props.fetchStreams}/>
+        <SearchBar fetchStreams={this.props.fetchStreams}
+                   fetchStream={this.props.fetchStream}/>
       );
     }
   }
@@ -28,7 +29,7 @@ class Root extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Twitch Stream Search</Text>
+        <Text style={styles.text}>Twitch Stream Search</Text>
         <View>{this.renderContent()}</View>
       </View>
     );
@@ -41,6 +42,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text:{
+    padding:50,
+    fontSize: 20
   },
   item: {
     padding: 10,

@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableHighlight } from 'react-native';
-import ListItem from './list_item';
+import { StyleSheet, Text, View, FlatList, TouchableHighlight} from 'react-native';
+import { List, ListItem } from 'react-native-elements';
+import StreamListItem from './list_item';
 
-class List extends React.Component {
+class StreamList extends React.Component {
   constructor(props){
     super(props);
   }
@@ -10,16 +11,20 @@ class List extends React.Component {
 
 
   render(){
+    console.log('streams', this.props.streams);
     return (
       <View style={styles.container}>
-        <Text>List</Text>
-        <FlatList
-          scrollEnabled={true}
-          data={this.props.streams}
-          renderItem={({item}) =>
-            <ListItem item={item}/>
-          }
-        />
+        <List style={styles.list}>
+          <FlatList
+            scrollEnabled={true}
+            data={this.props.streams}
+            keyExtractor={(item, idx) => idx}
+            renderItem={({item}) =>
+              <StreamListItem item={item}/>
+            }
+          />
+        </List>
+
       </View>
     );
   }
@@ -27,13 +32,24 @@ class List extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    width: 300,
+    height: 500,
+    alignItems: 'stretch',
     justifyContent: 'center'
   },
   item: {
     padding: 10,
     fontSize: 12,
     height: 44,
+  },
+  list:{
+    flex: 1,
+    alignItems: 'stretch',
+    height: 500
+  },
+  flatlist:{
+    height: 500,
+    flexGrow: 1
   }
 });
-export default List;
+export default StreamList;

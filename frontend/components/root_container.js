@@ -1,4 +1,4 @@
-import { fetchStreams } from '../actions/streams_actions';
+import { fetchStreams, fetchStream } from '../actions/streams_actions';
 import { connect } from 'react-redux';
 import Root from './root';
 
@@ -7,7 +7,8 @@ const mapStateToProps = state =>({
 });
 
 const mapDispatchToProps = dispatch =>({
-  fetchStreams: () => dispatch(fetchStreams())
+  fetchStreams: () => dispatch(fetchStreams()),
+  fetchStream: user => dispatch(fetchStream(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);
