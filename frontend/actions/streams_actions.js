@@ -18,3 +18,8 @@ export const fetchStream = user => dispatch => (
   StreamsUtil.fetchStream(user)
                 .then(stream => dispatch(receiveStreams(stream)))
 );
+
+export const deleteStreams = () => dispatch => (
+  StreamsUtil.deleteStreams()
+                .then(streams => dispatch(receiveStreams(streams)))
+);

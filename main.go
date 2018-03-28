@@ -41,24 +41,20 @@ var client = twitch.NewClient("w9go3ntxy39g3w1g3dhzwoa60ex92q")
     var itemArray []twitch.StreamData
     streams := GetCurrentStreams("")
     params := mux.Vars(r)
-    thing, err := client.GetUsersByID(string(streams[0].UserID))
+    userdata, err := client.GetUsersByID(string(streams[0].UserID))
     if err != nil {
       fmt.Printf("Error getting twitch streams: %v", err)
     }
+
     for _, item := range streams {
 
-      if strings.ToLower(thing[0].DisplayName) == strings.ToLower(params["user"]){
+      if strings.ToLower(userdata[0].DisplayName) == strings.ToLower(params["user"]){
         itemArray = append(itemArray, item)
         json.NewEncoder(w).Encode(itemArray)
         return
       }
     }
-    json.NewEncoder(w).Encode(&twitch.StreamData{})
-  }
-
-  func DeleteCurrentStreams(w http.ResponseWriter, r *http.Request){
-    streams = []twitch.StreamData{}
-    json.NewEncoder(w).Encode(streams)
+    json.NewEncoder(w).Encode(itemArray)
   }
 
 
@@ -66,7 +62,6 @@ func main() {
   router := mux.NewRouter()
   router.HandleFunc("/streams", GetStreams).Methods("GET")
   router.HandleFunc("/streams/{user}", GetStream).Methods("GET")
-  router.HandleFunc("/streams", DeleteCurrentStreams).Methods("DELETE")
   log.Fatal(http.ListenAndServe(":3000", router))
 
 }

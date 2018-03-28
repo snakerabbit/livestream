@@ -1,26 +1,40 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
 import SearchBar from './searchbar';
 import StreamList from './list';
 
 class Root extends React.Component {
   constructor(props){
     super(props);
+    this.state ={
+      searched: false
+    };
     this.renderContent = this.renderContent.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
-  componentDidMount(){
+  handleToggle(bool){
+    this.setState({
+      searched: bool
+    });
   }
 
   renderContent(){
-    if(this.props.streams){
+    if(this.state.searched){
       return(
-        <StreamList streams={this.props.streams}/>
+        <View>
+
+          <Button title="Back To Search" onPress={()=>this.handleToggle(false)}></Button>
+          <StreamList streams={this.props.streams}
+                      deleteStreams = {this.props.deleteStreams}
+                      searched = {this.handleToggle}/>
+        </View>
       );
     } else {
       return(
         <SearchBar fetchStreams={this.props.fetchStreams}
-                   fetchStream={this.props.fetchStream}/>
+                   fetchStream={this.props.fetchStream}
+                   searched = {this.handleToggle}/>
       );
     }
   }
@@ -30,6 +44,7 @@ class Root extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Twitch Stream Search</Text>
+        <Text style={{marginBottom: 20}}>Search live streams by Twitch User's username or click the search button to search all current live streams</Text>
         <View>{this.renderContent()}</View>
       </View>
     );
@@ -44,7 +59,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text:{
-    padding:50,
+    marginTop:20,
+    marginBottom: 10,
     fontSize: 20
   },
   item: {

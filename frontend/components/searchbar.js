@@ -20,6 +20,7 @@ class SearchBar extends React.Component {
     } else {
       this.props.fetchStreams();
     }
+    this.props.searched(true);
 
   }
 

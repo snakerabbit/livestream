@@ -1,39 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableHighlight} from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { StyleSheet, Text, View, FlatList, TouchableHighlight, Button, Dimensions} from 'react-native';
+import { List, ListItem} from 'react-native-elements';
 import StreamListItem from './list_item';
 
 class StreamList extends React.Component {
   constructor(props){
     super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(){
+    this.props.searched(false);
   }
 
 
 
   render(){
-    console.log('streams', this.props.streams);
-    return (
-      <View style={styles.container}>
-        <List style={styles.list}>
-          <FlatList
-            scrollEnabled={true}
-            data={this.props.streams}
-            keyExtractor={(item, idx) => idx}
-            renderItem={({item}) =>
-              <StreamListItem item={item}/>
-            }
-          />
-        </List>
-
-      </View>
-    );
+    if(!this.props.streams){
+      return (
+        <View>
+          <Text>No Results Found</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <List style={styles.list}>
+            <FlatList
+              scrollEnabled={true}
+              data={this.props.streams}
+              keyExtractor={(item, idx) => idx}
+              renderItem={({item}) =>
+                <StreamListItem item={item}/>
+              }
+            />
+          </List>
+        </View>
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: 300,
-    height: 500,
+    width: (Dimensions.get('window').width/3)*2,
+    height: Dimensions.get('window').height/2,
     alignItems: 'stretch',
     justifyContent: 'center'
   },

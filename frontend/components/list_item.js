@@ -13,6 +13,7 @@ class StreamListItem extends React.Component {
     };
     this.closeModal = this.closeModal.bind(this);
     this.handleClick = this.handleClick.bind(this);
+
   }
 
   // openModal(){
@@ -36,9 +37,8 @@ class StreamListItem extends React.Component {
   }
 
   render(){
-    console.log('ITEM', this.props.item);
     let url=`https://player.twitch.tv/?stream=${this.props.item.id}&channelId=${this.props.item.user_id}&autoplay=false`;
-    return (
+    return(
       <View>
         <ListItem onPress={this.handleClick}
           title={this.props.item.title}
